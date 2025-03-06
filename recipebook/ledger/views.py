@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
+from .models import *
 
 def recipe_list(request):
     template = loader.get_template('homepage.html')
@@ -34,5 +35,18 @@ def recipeListTemplate(request, num=1):
         ]
     context = {"number": number, "recipes": recipes}
     return render(request, 'recipeListTemplate.html', context)
+
+def recipe_detail(request, num=1):
+    try:
+        recipe = Recipe.objects.get(id=num)
+        ingredients = recipe.ingredients.all()
+    except Recipe.DoesNotExist:
+        recipe = None
+        ingredients = []
+
+    return render(request, 'recipeDetails.html', {
+        'recipe': recipe,
+        'ingredients' : ingredients
+    })
 
 # Create your views here.
