@@ -22,7 +22,7 @@ class Recipe(models.Model):
         return reverse('recipe_detail', args=[str(self.name)])
 
 class RecipeIngredient(models.Model):
-    Quantity = models.CharField(max_length=100, unique=True)
+    Quantity = models.CharField(max_length=100)
     Ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
@@ -33,5 +33,8 @@ class RecipeIngredient(models.Model):
         on_delete=models.CASCADE,
         related_name='ingredients'
     )
+
+    def __str__(self):
+        return f"{self.Quantity} of {self.Ingredient.name} for {self.Recipe.name}"
 
 # Create your models here.
