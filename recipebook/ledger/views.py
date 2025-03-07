@@ -1,38 +1,30 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from .models import *
 
 def recipe_list(request):
-    template = loader.get_template('homepage.html')
-    return HttpResponse(template.render())
+    recipes = Recipe.objects.all() 
+    return render(request, "recipeList.html", {"recipes": recipes})
 
-def recipeListTemplate(request, num=1):
-    if num == 1:
-        number = "1"
-        recipes = [
-                "Tomato - 3 pieces",
-                "Onion - 1 piece",
-                "Pork - 1 kilo",
-                "Water - 1 liter",
-                "Sinigang Mix - 1 packet",
+def recipe_detail(request, num=1):
+    try:
+        recipe = Recipe.objects.get(id=num)
+        ingredients = recipe.recipe_ingredients.all()
+
+        ri = []
+
+        ingredients = [
+            {"name": ri.Ingredient.name, "quantity": ri.Quantity}
+            for ri in ingredients
         ]
-    elif num == 2:
-        number = "2"
-        recipes = [
-                "garlic - 1 head",
-                "onion - 1 piece",
-                "vinegar - 1/2 cup",
-                "water - 1 cup",
-                "salt - 1 tablespoon",
-                "whole black peppers - 1 tablespoon",
-                "pork - 1 kilo",
-        ]
-    else:
-        number = "0"
-        recipes = [
-                "Wrong Page 404"
-        ]
-    context = {"number": number, "recipes": recipes}
-    return render(request, 'recipeListTemplate.html', context)
+    except Recipe.DoesNotExist:
+        recipe = None
+        ingredients = []
+
+    return render(request, 'recipeDetails.html', {
+        'recipe': recipe,
+        'ingredients' : ingredients
+    })
 
 # Create your views here.
