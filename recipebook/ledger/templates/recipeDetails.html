@@ -4,18 +4,12 @@
         <title>{{ recipe.name }}</title>
     </head>
     <body>
-        {% if recipe %}
             <h1>{{ recipe.name }}</h1>
             <h2>Ingredients:</h2>
             <ul>
                 {% for ingredient in ingredients %}
-                    <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
-                {% empty %}
-                    <li>No ingredients listed.</li>
+                    <li>{{ ingredient.quantity }} of {{ ingredient.name }}</li>
                 {% endfor %}
             </ul>
-        {% else %}
-            <h1>Recipe Not Found</h1>
-        {% endif %}
     </body>
 </html>

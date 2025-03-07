@@ -12,8 +12,10 @@ def recipe_detail(request, num=1):
         recipe = Recipe.objects.get(id=num)
         ingredients = recipe.recipe_ingredients.all()
 
+        ri = []
+
         ingredients = [
-            {"name": ri.ingredient.name, "quantity": ri.quantity}
+            {"name": ri.Ingredient.name, "quantity": ri.Quantity}
             for ri in ingredients
         ]
     except Recipe.DoesNotExist:
