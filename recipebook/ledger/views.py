@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 from .models import *
 
+@login_required
 def recipe_list(request):
     recipes = Recipe.objects.all() 
     return render(request, "recipeList.html", {"recipes": recipes})
 
+@login_required
 def recipe_detail(request, num=1):
     try:
         recipe = Recipe.objects.get(id=num)
@@ -26,5 +29,3 @@ def recipe_detail(request, num=1):
         'recipe': recipe,
         'ingredients' : ingredients
     })
-
-# Create your views here.
