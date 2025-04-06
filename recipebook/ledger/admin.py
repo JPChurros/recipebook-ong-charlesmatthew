@@ -18,16 +18,19 @@ class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-class RecipeAdmin(admin.ModelAdmin):
-    model = Recipe
-    list_display = ('name', 'author', 'created_on', 'updated_on',)
-    search_fields = ('name', 'author', 'created_on', 'updated_on',)
-    inlines = [RecipeIngredientInline]
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient
     list_display = ('Recipe', 'Ingredient', 'Quantity')
     list_filter = ('Recipe', 'Ingredient')
+
+class RecipeAdmin(admin.ModelAdmin):
+    model = Recipe
+    list_display = ('name', 'author', 'created_on', 'updated_on',)
+    search_fields = ('name', 'author', 'created_on', 'updated_on',)
+    inlines = [RecipeIngredientInline, RecipeImageInline]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
