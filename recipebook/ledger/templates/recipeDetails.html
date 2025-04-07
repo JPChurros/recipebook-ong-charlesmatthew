@@ -18,5 +18,8 @@
     {% empty %}
         <p>No image uploaded</p>
     {% endfor %}
+
+    <a href="{% url 'recipe_add_image' recipe.id %}">Upload Image</a>
+
     <small>Last updated: {{ recipe.updated_on }}</small>
 {% endblock %}
