@@ -12,4 +12,4 @@ class AddIngredientForm(forms.Form):
 class AddImageForm(forms.ModelForm):
     class Meta:
         model = RecipeImage
-        fields = ['image', 'descripton']
+        fields = ['image', 'description']
