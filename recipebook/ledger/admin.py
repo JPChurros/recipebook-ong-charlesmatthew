@@ -20,6 +20,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class RecipeImageInline(admin.TabularInline):
     model = RecipeImage
+    extra = 1
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient
@@ -37,4 +38,3 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
-# Register your models here.

@@ -48,9 +48,9 @@ class RecipeIngredient(models.Model):
         return f"{self.Quantity} of {self.Ingredient.name} for {self.Recipe.name}"
 
 class RecipeImage(models.Model):
-    image = models.ImageField(upload_to="images/", null=False, blank=False)
+    image = models.ImageField(upload_to="images/", null=False)
     description = models.CharField(max_length=255)
-    recipe = models.ForeignKey("Recipe", on_delete=models.CASCADE, related_name="images")
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="images")
 
     def __str__(self):
-        return f"Image for {self.Recipe.name}"
+        return f"Image for {self.recipe.name}"
