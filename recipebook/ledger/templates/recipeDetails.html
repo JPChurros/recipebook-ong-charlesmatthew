@@ -5,11 +5,27 @@
 {% block content %}
     <h1>{{ recipe.name }}</h1>
     <h3>Author: {{ recipe.author.username }}</h3>
+    <small>Last updated: {{ recipe.updated_on }}</small>
     <h2>Ingredients:</h2>
     <ul>
         {% for ingredient in ingredients %}
             <li>{{ ingredient.quantity }} of {{ ingredient.name }}</li>
         {% endfor %}
     </ul>
-    <small>Last updated: {{ recipe.updated_on }}</small>
+
+    <div class="recipe-images">
+        {% for image in recipe.images.all %}
+        <img src="{{ image.image.url }}" alt="{{ image.description }}" width=200px>
+        {% endfor %}
+    </div>
+
+    <h2>Upload image</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ add_image_form.as_p }}
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <p><a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a></p>
+
 {% endblock %}

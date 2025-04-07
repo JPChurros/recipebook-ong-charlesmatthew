@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Create New Recipe{% endblock %}
+
+{% block content %}
+
+<h2>Add a New Recipe</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ recipe_form.as_p }}
+    <button type="submit" name="recipe_form">Add Recipe</button>
+  </form>
+
+<h2>Add a New Ingredient</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ ingredient_form.as_p }}
+    <button type="submit" name="ingredient_form">Add Ingredient</button>
+</form>
+
+<h2>Assign Ingredient to Recipe</h2>
+
+<form method="post">
+      {% csrf_token %}
+      {{ recipe_ingredient_form.as_p }}
+      <input type="hidden" name="recipe_id" value="{{ recipe_form.instance.id }}">
+      <button type="submit" name="recipe_ingredient_form">Add Ingredient to Recipe</button>
+</form>
+
+<p><a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a></p>
+
+{% endblock %}
